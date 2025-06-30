@@ -1,0 +1,161 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
+
+  body {
+    background-color: transparent;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  #countdown-container {
+    display: flex;
+    flex-direction: column; /* Stack the rows vertically */
+    gap: 10px; /* Gap between the two rows */
+    font-family: 'Merriweather', serif;
+    color: #FFFFFF;
+    text-align: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 600px; /* Limit max width for larger screens */
+  }
+
+  .countdown-row {
+    display: flex; /* Make each row a flex container */
+    justify-content: center; /* Center items within each row */
+    gap: 10px; /* Gap between boxes in a row */
+    width: 100%;
+  }
+
+  .countdown-box {
+    background-color: #CC1010;
+    padding: 10px 15px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    flex: 1 1 0%; /* Allow boxes to distribute space evenly */
+    min-width: 100px; /* Minimum width to prevent squishing */
+    max-width: 200px; /* Maximum width for each box */
+  }
+
+  .countdown-value {
+    font-size: 2em;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .countdown-label {
+    font-size: 0.7em;
+    text-transform: uppercase;
+    margin-top: 5px;
+    letter-spacing: 0.05em;
+  }
+
+  /* Media query for larger screens (e.g., tablets and desktops) */
+  @media (min-width: 480px) {
+    #countdown-container {
+      gap: 15px; /* Restore larger gap between rows */
+    }
+    .countdown-row {
+      gap: 15px; /* Restore larger gap within rows */
+    }
+    .countdown-box {
+      padding: 15px 20px;
+      min-width: 120px; /* Adjust min width for larger screens */
+      max-width: 180px; /* Adjust max width for larger screens */
+    }
+    .countdown-value {
+      font-size: 2.5em;
+    }
+    .countdown-label {
+      font-size: 0.8em;
+    }
+  }
+
+  /* Media query for very small screens (e.g., older phones or narrow embeds) */
+  @media (max-width: 320px) {
+    .countdown-box {
+      min-width: 80px; /* Even smaller min-width for very cramped spaces */
+      padding: 8px 10px;
+    }
+    .countdown-value {
+      font-size: 1.8em;
+    }
+    .countdown-label {
+      font-size: 0.6em;
+    }
+  }
+
+</style>
+
+<div id="countdown-container">
+  <div class="countdown-row">
+    <div class="countdown-box">
+      <div id="days" class="countdown-value"></div>
+      <div class="countdown-label">Days</div>
+    </div>
+    <div class="countdown-box">
+      <div id="hours" class="countdown-value"></div>
+      <div class="countdown-label">Hours</div>
+    </div>
+  </div>
+  <div class="countdown-row">
+    <div class="countdown-box">
+      <div id="minutes" class="countdown-value"></div>
+      <div class="countdown-label">Minutes</div>
+    </div>
+    <div class="countdown-box">
+      <div id="seconds" class="countdown-value"></div>
+      <div class="countdown-label">Seconds</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function updateCountdown() {
+    const now = new Date();
+    let christmasYear = now.getFullYear();
+    let christmasDate = new Date(`December 25, ${christmasYear} 00:00:00`);
+
+    // If Christmas has already passed this year, set it for next year
+    if (now.getMonth() === 11 && now.getDate() > 25) {
+      christmasYear++;
+      christmasDate = new Date(`December 25, ${christmasYear} 00:00:00`);
+    }
+    
+    const distance = christmasDate.getTime() - now.getTime();
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("days").innerHTML = days;
+    document.getElementById("hours").innerHTML = String(hours).padStart(2, '0');
+    document.getElementById("minutes").innerHTML = String(minutes).padStart(2, '0');
+    document.getElementById("seconds").innerHTML = String(seconds).padStart(2, '0');
+
+    if (distance < 0) {
+      clearInterval(countdownInterval);
+      const countdownContainer = document.getElementById("countdown-container");
+      countdownContainer.innerHTML = "MERRY CHRISTMAS!";
+      countdownContainer.style.fontSize = "2.5em";
+      countdownContainer.style.fontWeight = "700";
+      countdownContainer.style.color = "#CC1010";
+      countdownContainer.style.backgroundColor = "transparent";
+      countdownContainer.style.display = "block"; /* Ensure text doesn't use flexbox */
+      countdownContainer.style.padding = "20px";
+      countdownContainer.style.boxShadow = "none";
+    }
+  }
+
+  updateCountdown();
+  const countdownInterval = setInterval(updateCountdown, 1000);
+</script>
