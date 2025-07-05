@@ -3,31 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Cool Christmas Party</title>
+    <title>thecoolchristmasparty</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Merriweather', serif; /* Updated font to Merriweather */
             background-color: #F0F0F0; /* Light grey background */
             /* Using a placeholder for a festive background image */
-            background-image: url('https://placehold.co/1920x1080/F0F0F0/B22222?text=Subtle%20Snowflake%20Pattern');
+            background-image: url('https://placehold.co/1920x1080/F0F0F0/CC1010?text=Subtle%20Snowflake%20Pattern'); /* Adjusted text color to match new red */
             background-size: cover;
             background-position: center;
             background-attachment: fixed; /* Makes the background scroll with the page */
             color: #333;
         }
         .header-bg {
-            background-color: #B22222; /* A darker shade of red from the logo */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: #CC1010; /* Main red from the new countdown style */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Adjusted shadow for consistency */
+            border-radius: 10px; /* Adjusted border-radius for consistency */
         }
         .main-content-bg {
             background-color: #FFFFFF; /* White background for content */
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            border-radius: 10px; /* Adjusted border-radius for consistency */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Adjusted shadow for consistency */
         }
         .button-primary {
-            background-color: #FF4500; /* Orange-red for buttons */
+            background-color: #FF4500; /* Keeping orange-red for buttons as it's festive */
             color: white;
             padding: 12px 25px;
             border-radius: 50px;
@@ -39,166 +40,247 @@
             transform: translateY(-2px);
         }
         .text-red-logo {
-            color: #B22222; /* Darker red for emphasis */
+            color: #CC1010; /* Main red from the new countdown style */
         }
         .text-white-logo {
             color: #FFFFFF; /* White from the logo */
         }
         .footer-bg {
-            background-color: #8B0000; /* Even darker red for the footer */
+            background-color: #960000; /* Darker red, derived from #CC1010 */
+            border-radius: 10px; /* Adjusted border-radius for consistency */
         }
+
+        /* Countdown specific styles from user's input */
+        #countdown-container {
+            display: flex;
+            flex-direction: column; /* Stack the rows vertically */
+            gap: 10px; /* Gap between the two rows */
+            font-family: 'Merriweather', serif;
+            color: #FFFFFF;
+            text-align: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 600px; /* Limit max width for larger screens */
+            margin: 0 auto; /* Center the container within its parent */
+        }
+
+        .countdown-row {
+            display: flex; /* Make each row a flex container */
+            justify-content: center; /* Center items within each row */
+            gap: 10px; /* Gap between boxes in a row */
+            width: 100%;
+        }
+
         .countdown-box {
-            background-color: #FFD700; /* Gold color for countdown */
-            color: #8B0000; /* Dark red text */
-            border-radius: 10px;
-            padding: 15px;
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            background-color: #CC1010; /* Main red for countdown boxes */
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            flex: 1 1 0%; /* Allow boxes to distribute space evenly */
+            min-width: 100px; /* Minimum width to prevent squishing */
+            max-width: 200px; /* Maximum width for each box */
         }
-        .countdown-box span {
-            display: block;
-            font-size: 0.9rem;
-            font-weight: normal;
+
+        .countdown-value {
+            font-size: 2em;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .countdown-label {
+            font-size: 0.7em;
+            text-transform: uppercase;
             margin-top: 5px;
+            letter-spacing: 0.05em;
+        }
+
+        /* Media query for larger screens (e.g., tablets and desktops) */
+        @media (min-width: 480px) {
+            #countdown-container {
+                gap: 15px; /* Restore larger gap between rows */
+            }
+            .countdown-row {
+                gap: 15px; /* Restore larger gap within rows */
+            }
+            .countdown-box {
+                padding: 15px 20px;
+                min-width: 120px; /* Adjust min width for larger screens */
+                max-width: 180px; /* Adjust max width for larger screens */
+            }
+            .countdown-value {
+                font-size: 2.5em;
+            }
+            .countdown-label {
+                font-size: 0.8em;
+            }
+        }
+
+        /* Media query for very small screens (e.g., older phones or narrow embeds) */
+        @media (max-width: 320px) {
+            .countdown-box {
+                min-width: 80px; /* Even smaller min-width for very cramped spaces */
+                padding: 8px 10px;
+            }
+            .countdown-value {
+                font-size: 1.8em;
+            }
+            .countdown-label {
+                font-size: 0.6em;
+            }
+        }
+
+        /* Style for the success message */
+        .form-success-message { /* Changed to class for reuse */
+            display: none; /* Hidden by default */
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            text-align: center;
         }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <!-- Header Section -->
     <header class="header-bg py-4 px-6 md:px-12 flex flex-col md:flex-row items-center justify-between rounded-b-xl">
         <div class="flex items-center space-x-4">
-            <!-- Logo from user upload -->
-            <img src="thecoolchristmasparty Logo-2.png" alt="The Cool Christmas Party Logo" class="h-16 w-16 rounded-full border-4 border-white">
-            <h1 class="text-white-logo text-3xl md:text-4xl font-bold">The Cool Christmas Party <span class="text-xl">🎄</span></h1>
+            <img src="thecoolchristmasparty Logo-2.png" alt="thecoolchristmasparty Logo" class="h-16 w-16 rounded-full border-4 border-white">
+            <h1 class="text-white-logo text-3xl md:text-4xl font-bold">thecoolchristmasparty <span class="text-xl">🎄</span></h1>
         </div>
         <nav class="mt-4 md:mt-0">
             <ul class="flex flex-wrap justify-center space-x-6 text-white-logo text-lg">
-                <li><a href="#about" class="hover:underline">About</a></li>
-                <li><a href="#details" class="hover:underline">Details</a></li>
+                <li><a href="#schedule" class="hover:underline">Schedule</a></li>
+                <li><a href="#raffle" class="hover:underline">Raffle</a></li>
                 <li><a href="#contact" class="hover:underline">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Main Content Section -->
     <main class="flex-grow container mx-auto p-6 md:p-10 my-8">
         <section id="hero" class="main-content-bg text-center p-8 md:p-12 mb-8 rounded-lg">
             <h2 class="text-red-logo text-4xl md:text-5xl font-bold mb-4">🎅 Get Ready for the Ultimate Holiday Bash! 🎁</h2>
             <p class="text-lg md:text-xl mb-6">Join us for a night of festive fun, delicious food, and unforgettable memories.</p>
 
-            <!-- Christmas Countdown -->
-            <div class="flex justify-center items-center space-x-4 mb-8">
-                <div class="countdown-box">
-                    <span id="days">00</span><span>Days</span>
+            <div id="countdown-container" class="mb-8">
+                <div class="countdown-row">
+                    <div class="countdown-box">
+                        <div id="days" class="countdown-value"></div>
+                        <div class="countdown-label">Days</div>
+                    </div>
+                    <div class="countdown-box">
+                        <div id="hours" class="countdown-value"></div>
+                        <div class="countdown-label">Hours</div>
+                    </div>
                 </div>
-                <div class="countdown-box">
-                    <span id="hours">00</span><span>Hours</span>
-                </div>
-                <div class="countdown-box">
-                    <span id="minutes">00</span><span>Minutes</span>
-                </div>
-                <div class="countdown-box">
-                    <span id="seconds">00</span><span>Seconds</span>
+                <div class="countdown-row">
+                    <div class="countdown-box">
+                        <div id="minutes" class="countdown-value"></div>
+                        <div class="countdown-label">Minutes</div>
+                    </div>
+                    <div class="countdown-box">
+                        <div id="seconds" class="countdown-value"></div>
+                        <div class="countdown-label">Seconds</div>
+                    </div>
                 </div>
             </div>
 
-            <button class="button-primary text-xl">RSVP Now! ✨</button>
         </section>
 
-        <section id="about" class="main-content-bg p-8 md:p-12 mb-8 rounded-lg">
-            <h3 class="text-red-logo text-3xl font-bold mb-6 text-center">About the Party 🌟</h3>
+        <section id="raffle" class="main-content-bg p-8 md:p-12 mb-8 rounded-lg">
+            <h3 class="text-red-logo text-3xl font-bold mb-6 text-center">🎉 Enter Our Festive Raffle! 🎟️</h3>
+            <p class="text-center text-lg mb-8">
+                "Book" your tickets below for a chance to win amazing holiday prizes! Your entries will be recorded.
+            </p>
+            <!-- IMPORTANT: Replace "YOUR_RAFFLE_WEB_APP_URL_HERE" with the URL you get from deploying your Google Apps Script for raffle entries -->
+            <form id="raffleForm" class="max-w-lg mx-auto" action="YOUR_RAFFLE_WEB_APP_URL_HERE" method="POST">
+                <div class="mb-4">
+                    <label for="raffle-name" class="block text-gray-700 text-sm font-bold mb-2">Your Name:</label>
+                    <input type="text" id="raffle-name" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Full Name" required>
+                </div>
+                <div class="mb-4">
+                    <label for="raffle-email" class="block text-gray-700 text-sm font-bold mb-2">Your Email:</label>
+                    <input type="email" id="raffle-email" name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="your.email@example.com" required>
+                </div>
+                <div class="mb-6">
+                    <label for="num-tickets" class="block text-gray-700 text-sm font-bold mb-2">Number of Tickets:</label>
+                    <input type="number" id="num-tickets" name="numTickets" min="1" max="10" value="1" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                </div>
+                <div class="flex items-center justify-center">
+                    <button type="submit" class="button-primary text-lg">Book My Tickets!</button>
+                </div>
+                <div id="raffle-success-message" class="form-success-message">
+                    Your raffle tickets have been booked! Good luck!
+                </div>
+            </form>
+        </section>
+
+        <section id="schedule" class="main-content-bg p-8 md:p-12 mb-8 rounded-lg">
+            <h3 class="text-red-logo text-3xl font-bold mb-6 text-center">🗓️ Event Schedule 🥳</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                 <div>
-                    <p class="mb-4 text-lg">
-                        The Cool Christmas Party is back and better than ever! We're transforming our venue into a winter wonderland, complete with dazzling lights, festive decorations, and a cozy atmosphere that will get everyone into the holiday spirit.
-                    </p>
-                    <p class="mb-4 text-lg">
-                        Prepare for an evening filled with laughter, good cheer, and plenty of surprises. Whether you're looking to mingle with friends, enjoy some holiday treats, or dance the night away, this is the place to be!
-                    </p>
+                    <p class="text-lg mb-4 font-semibold text-red-logo">Date: December 23rd, 2025 at 6:00 PM</p>
+                    <ul class="list-disc list-inside text-lg space-y-3">
+                        <li><span class="font-semibold">6:00 PM - 6:30 PM:</span> Guest Arrival & Welcome Drinks 🥂</li>
+                        <li><span class="font-semibold">6:30 PM - 7:30 PM:</span> Gourmet Christmas Dinner Served 🍽️</li>
+                        <li><span class="font-semibold">7:30 PM - 8:00 PM:</span> Opening Remarks & Raffle Ticket Last Call 🎟️</li>
+                        <li><span class="font-semibold">8:00 PM - 9:30 PM:</span> Live DJ & Dance Floor Opens 🎶</li>
+                        <li><span class="font-semibold">9:30 PM - 10:00 PM:</span> Raffle Draw & Prize Announcements 🎁</li>
+                        <li><span class="font-semibold">10:00 PM - 11:00 PM:</span> Continue Dancing & Festive Fun! 🎉</li>
+                        <li><span class="font-semibold">11:00 PM:</span> Carriages 🎅</li>
+                    </ul>
+                    <div class="mt-8 text-center">
+                        <button onclick="addToCalendar()" class="button-primary text-lg">Add to Calendar 📅</button>
+                    </div>
                 </div>
                 <div>
-                    <!-- More festive placeholder image -->
-                    <img src="https://placehold.co/600x400/8B0000/FFFFFF?text=Christmas+Tree+Lights" alt="Christmas Tree with Lights" class="w-full h-auto rounded-lg shadow-md">
+                    <img src="https://placehold.co/600x400/CC1010/FFFFFF?text=Party+Schedule+Overview" alt="Party Schedule Overview" class="w-full h-auto rounded-lg shadow-md">
                 </div>
-            </div>
-        </section>
-
-        <section id="details" class="main-content-bg p-8 md:p-12 mb-8 rounded-lg">
-            <h3 class="text-red-logo text-3xl font-bold mb-6 text-center">Party Details 🗓️</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                <div class="p-6 border border-gray-200 rounded-lg shadow-sm">
-                    <h4 class="text-2xl font-semibold mb-2 text-red-logo">Date & Time ⏰</h4>
-                    <p class="text-lg">December 24th, 2025</p>
-                    <p class="text-lg">7:00 PM onwards</p>
-                </div>
-                <div class="p-6 border border-gray-200 rounded-lg shadow-sm">
-                    <h4 class="text-2xl font-semibold mb-2 text-red-logo">Location 📍</h4>
-                    <p class="text-lg">The Grand Ballroom</p>
-                    <p class="text-lg">123 Winter Wonderland Lane</p>
-                    <p class="text-lg">Festive City, FC 12345</p>
-                </div>
-                <div class="p-6 border border-gray-200 rounded-lg shadow-sm">
-                    <h4 class="text-2xl font-semibold mb-2 text-red-logo">Dress Code 👗</h4>
-                    <p class="text-lg">Festive Formal</p>
-                    <p class="text-lg">(Think sparkles & holiday cheer!)</p>
-                </div>
-            </div>
-            <div class="mt-8 text-center">
-                <h4 class="text-2xl font-semibold mb-4 text-red-logo">What to Expect: 🥳</h4>
-                <ul class="list-disc list-inside text-lg inline-block text-left">
-                    <li>Live DJ & Dance Floor 🎶</li>
-                    <li>Gourmet Christmas Dinner 🍽️</li>
-                    <li>Open Bar with Signature Cocktails 🍹</li>
-                    <li>Photo Booth with Fun Props 📸</li>
-                    <li>Secret Santa Gift Exchange (Optional) 🎁</li>
-                    <li>And much more! 🎉</li>
-                </ul>
             </div>
         </section>
 
         <section id="contact" class="main-content-bg p-8 md:p-12 rounded-lg">
             <h3 class="text-red-logo text-3xl font-bold mb-6 text-center">Contact Us 📧</h3>
             <p class="text-center text-lg mb-6">Have questions? Feel free to reach out!</p>
-            <form class="max-w-lg mx-auto">
+            <form id="contactForm" class="max-w-lg mx-auto" action="https://script.google.com/macros/s/AKfycbxUfKmlSBzDWDoHm3UEHFlX5YQbM-1M1X_5CQZ13nalfpzGS-ANWi721zKJAkqZiS9a/exec" method="POST">
                 <div class="mb-4">
                     <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name:</label>
-                    <input type="text" id="name" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Your Name">
+                    <input type="text" id="name" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Your Name" required>
                 </div>
                 <div class="mb-4">
                     <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
-                    <input type="email" id="email" name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="your.email@example.com">
+                    <input type="email" id="email" name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="your.email@example.com" required>
                 </div>
                 <div class="mb-6">
                     <label for="message" class="block text-gray-700 text-sm font-bold mb-2">Message:</label>
-                    <textarea id="message" name="message" rows="5" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Your message..."></textarea>
+                    <textarea id="message" name="message" rows="5" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Your message..." required></textarea>
                 </div>
                 <div class="flex items-center justify-center">
                     <button type="submit" class="button-primary text-lg">Send Message</button>
+                </div>
+                <div id="form-success-message" class="form-success-message">
+                    Thank you for your message! We'll get back to you soon.
                 </div>
             </form>
         </section>
     </main>
 
-    <!-- Footer Section -->
     <footer class="footer-bg text-white-logo py-6 px-6 md:px-12 text-center rounded-t-xl mt-8">
-        <p>&copy; 2025 The Cool Christmas Party. All rights reserved.</p>
+        <p>&copy; 2025 thecoolchristmasparty. All rights reserved.</p>
         <p class="mt-2">Designed with festive cheer! 🎄✨</p>
     </footer>
 
     <script>
-        // Set the date we're counting down to (Christmas Eve 2025)
-        const countDownDate = new Date("Dec 24, 2025 19:00:00").getTime();
+        // Set the date we're counting down to (December 23rd, 2025, 6 PM)
+        const partyDate = new Date("Dec 23, 2025 18:00:00").getTime();
 
-        // Update the countdown every 1 second
-        const x = setInterval(function() {
-
-            // Get today's date and time
+        function updateCountdown() {
             const now = new Date().getTime();
-
-            // Find the distance between now and the countdown date
-            const distance = countDownDate - now;
+            const distance = partyDate - now;
 
             // Time calculations for days, hours, minutes and seconds
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -207,22 +289,152 @@
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
             // Display the result in the corresponding elements
-            document.getElementById("days").innerHTML = days < 10 ? "0" + days : days;
-            document.getElementById("hours").innerHTML = hours < 10 ? "0" + hours : hours;
-            document.getElementById("minutes").innerHTML = minutes < 10 ? "0" + minutes : minutes;
-            document.getElementById("seconds").innerHTML = seconds < 10 ? "0" + seconds : seconds;
+            document.getElementById("days").innerHTML = days;
+            document.getElementById("hours").innerHTML = String(hours).padStart(2, '0');
+            document.getElementById("minutes").innerHTML = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").innerHTML = String(seconds).padStart(2, '0');
 
-            // If the countdown is over, write some text
+            // If the countdown is over, update the display
             if (distance < 0) {
-                clearInterval(x);
-                document.getElementById("days").innerHTML = "00";
-                document.getElementById("hours").innerHTML = "00";
-                document.getElementById("minutes").innerHTML = "00";
-                document.getElementById("seconds").innerHTML = "00";
+                clearInterval(countdownInterval);
+                const countdownContainer = document.getElementById("countdown-container");
+                countdownContainer.innerHTML = "MERRY CHRISTMAS!"; // Message for the countdown box
+                countdownContainer.style.fontSize = "2.5em";
+                countdownContainer.style.fontWeight = "700";
+                countdownContainer.style.color = "#CC1010"; /* Use the main red color */
+                countdownContainer.style.backgroundColor = "transparent";
+                countdownContainer.style.display = "block";
+                countdownContainer.style.padding = "20px";
+                countdownContainer.style.boxShadow = "none";
+
+                // Also update the hero section text
                 document.querySelector("#hero h2").innerHTML = "🎉 The Party Has Begun! 🎉";
                 document.querySelector("#hero p").innerHTML = "Merry Christmas! Enjoy the celebration!";
             }
-        }, 1000);
+        }
+
+        // Function to format date for iCalendar
+        function formatDateForIcal(date) {
+            return date.getFullYear() +
+                   String(date.getMonth() + 1).padStart(2, '0') +
+                   String(date.getDate()).padStart(2, '0') +
+                   'T' +
+                   String(date.getHours()).padStart(2, '0') +
+                   String(date.getMinutes()).padStart(2, '0') +
+                   String(date.getSeconds()).padStart(2, '0');
+        }
+
+        // Function to add event to calendar
+        function addToCalendar() {
+            const eventTitle = "thecoolchristmasparty";
+            const eventDescription = "Join us for a night of festive fun, delicious food, and unforgettable memories at thecoolchristmasparty!";
+            const eventLocation = "The Grand Ballroom, 123 Winter Wonderland Lane, Festive City, FC 12345";
+
+            // Party starts Dec 23, 2025 at 6:00 PM
+            const startDate = new Date("Dec 23, 2025 18:00:00");
+            // Party ends Dec 23, 2025 at 11:00 PM (based on 'Carriages' time)
+            const endDate = new Date("Dec 23, 2025 23:00:00");
+
+            const icalContent = [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//thecoolchristmasparty//NONSGML v1.0//EN',
+                'BEGIN:VEVENT',
+                'UID:' + new Date().getTime() + '@thecoolchristmasparty.com', // Unique ID
+                'DTSTAMP:' + formatDateForIcal(new Date()),
+                'DTSTART:' + formatDateForIcal(startDate),
+                'DTEND:' + formatDateForIcal(endDate),
+                'SUMMARY:' + eventTitle,
+                'DESCRIPTION:' + eventDescription,
+                'LOCATION:' + eventLocation,
+                'END:VEVENT',
+                'END:VCALENDAR'
+            ].join('\n');
+
+            const blob = new Blob([icalContent], { type: 'text/calendar;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'thecoolchristmasparty.ics';
+            document.body.appendChild(a); // Append to body to make it clickable
+            a.click(); // Programmatically click the link to trigger download
+            document.body.removeChild(a); // Clean up the element
+            URL.revokeObjectURL(url); // Clean up the URL object
+        }
+
+        // Initial call to display countdown immediately
+        updateCountdown();
+        // Update the countdown every 1 second
+        const countdownInterval = setInterval(updateCountdown, 1000);
+
+        // Handle Contact Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const form = event.target;
+            const formData = new FormData(form);
+            const webAppUrl = form.action; // Get the URL from the form's action attribute
+
+            fetch(webAppUrl, {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors' // Required for cross-origin form submissions to Apps Script
+            })
+            .then(response => {
+                // Since 'no-cors' mode is used, we can't read the response.
+                // Assume success and show a message.
+                console.log('Contact form submission sent to Google Apps Script.');
+                document.getElementById('form-success-message').style.display = 'block';
+                form.reset(); // Clear the form fields
+                // Hide message after a few seconds
+                setTimeout(() => {
+                    document.getElementById('form-success-message').style.display = 'none';
+                }, 5000); // 5 seconds
+            })
+            .catch(error => {
+                console.error('Error submitting contact form:', error);
+                // You could show an error message here if needed
+            });
+        });
+
+        // Handle Raffle Form Submission
+        document.getElementById('raffleForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const form = event.target;
+            const formData = new FormData(form);
+            const webAppUrl = form.action; // Get the URL from the form's action attribute
+
+            // Optional: Get user's IP address (for logging purposes, not guaranteed to be accurate)
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    formData.append('ipAddress', data.ip);
+                })
+                .catch(error => {
+                    console.warn('Could not fetch IP address:', error);
+                    formData.append('ipAddress', 'N/A');
+                })
+                .finally(() => {
+                    fetch(webAppUrl, {
+                        method: 'POST',
+                        body: formData,
+                        mode: 'no-cors' // Required for cross-origin form submissions to Apps Script
+                    })
+                    .then(response => {
+                        console.log('Raffle form submission sent to Google Apps Script.');
+                        document.getElementById('raffle-success-message').style.display = 'block';
+                        form.reset(); // Clear the form fields
+                        setTimeout(() => {
+                            document.getElementById('raffle-success-message').style.display = 'none';
+                        }, 5000); // 5 seconds
+                    })
+                    .catch(error => {
+                        console.error('Error submitting raffle form:', error);
+                    });
+                });
+        });
     </script>
 </body>
 </html>
